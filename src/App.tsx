@@ -1,7 +1,12 @@
+import { RouterProvider } from 'react-router';
+import { router } from './routes';
+import { CustomCursor } from './components/CustomCursor';
+
 export default function App() {
   return (
-    <div className="flex items-center justify-center h-screen bg-slate-900 text-white">
-      <h1 className="text-4xl font-bold">Sample only</h1>
-    </div>
-  )
+    <>
+      <CustomCursor />
+      <RouterProvider router={router} />
+    </>
+  );
 }
