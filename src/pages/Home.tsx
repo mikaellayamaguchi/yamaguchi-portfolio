@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles, Download } from 'lucide-react';
 import { Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SEO, TiltCard } from '../components/';
@@ -153,83 +153,293 @@ export function Home() {
         description="Mikaella Gabrielle S. Yamaguchi - Front End Developer crafting beautiful, responsive, and modern web experiences. View my portfolio of projects and get in touch."
       />
       
-      {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden pt-20 pb-32">
+      {/* Hero Sections */}
+      <section id="home" className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden pt-32 pb-32">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            className="absolute top-[-200px] right-[-100px] w-[500px] h-[500px] rounded-full bg-[#4C7B7B]/20 blur-[100px]"
-            animate={{ y: [0, 50, 0], x: [0, 30, 0] }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-[-200px] right-[-100px] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#4C7B7B]/30 to-[#6E9A9A]/20"
+            style={{ filter: 'blur(120px)' }}
+            animate={{
+              y: [0, 80, 0],
+              x: [0, 50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
           />
           <motion.div
-            className="absolute bottom-[-150px] left-[-100px] w-[400px] h-[400px] rounded-full bg-[#6E9A9A]/20 blur-[100px]"
-            animate={{ y: [0, -50, 0], x: [0, -30, 0] }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute bottom-[-150px] left-[-150px] w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#6E9A9A]/25 to-[#4C7B7B]/15"
+            style={{ filter: 'blur(120px)' }}
+            animate={{
+              y: [0, -70, 0],
+              x: [0, -40, 0],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 2,
+            }}
           />
+          
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(76,123,123,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(76,123,123,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
         </div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 200, 
+              damping: 20,
+              delay: 0.2 
+            }}
+            className="inline-block mb-12"
+            style={{ marginTop: '48px' }}
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              Hi, I'm{' '}
-              <span className="bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] bg-clip-text text-transparent">
-                Mikaella Gabrielle
-              </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-[#7A756D] dark:text-[#B8B8B8] mb-4">
-              Front End Developer
-            </p>
-            <p className="text-lg md:text-xl text-[#7A756D] dark:text-[#B8B8B8] mb-8">
-              Crafting{' '}
-              <motion.span
-                key={currentWord}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"
-              >
-                {words[currentWord]}
-              </motion.span>{' '}
-              web experiences
-            </p>
-
-            <div className="flex gap-4 justify-center flex-wrap">
-              <a href="#contact" className="group px-8 py-4 bg-[#4C7B7B] hover:bg-[#6E9A9A] text-white rounded-lg font-semibold transition-all hover:scale-105 hover:shadow-xl flex items-center gap-2">
-                Get In Touch
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <Link to="/resume" className="px-8 py-4 border-2 border-[#4C7B7B] text-[#4C7B7B] dark:text-[#6E9A9A] hover:bg-[#4C7B7B] hover:text-white dark:hover:bg-[#6E9A9A] rounded-lg font-semibold transition-all hover:scale-105">
-                View Resume
-              </Link>
-            </div>
+            <motion.div
+              className="px-6 py-3 bg-gradient-to-r from-[#4C7B7B]/10 via-[#6E9A9A]/10 to-[#4C7B7B]/10 backdrop-blur-sm rounded-full border border-[#4C7B7B]/20 shadow-lg"
+              animate={{
+                boxShadow: [
+                  '0 0 20px rgba(76,123,123,0.2)',
+                  '0 0 40px rgba(110,154,154,0.3)',
+                  '0 0 20px rgba(76,123,123,0.2)',
+                ],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <motion.div
+                  className="w-2 h-2 rounded-full bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A]"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [1, 0.5, 1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                />
+                <span className="text-sm font-semibold bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] bg-clip-text text-transparent">
+                  Looking for Internship
+                </span>
+              </div>
+            </motion.div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-16 flex justify-center gap-8 flex-wrap"
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            {[
-              { icon: Code2, label: 'Clean Code' },
-              { icon: Palette, label: 'UI/UX Design' },
-              { icon: Zap, label: 'Performance' },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                className="flex flex-col items-center gap-2 text-[#4C7B7B] dark:text-[#6E9A9A]"
-                whileHover={{ scale: 1.1, y: -5 }}
-                transition={{ type: "spring", stiffness: 300 }}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
+              <motion.span
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="inline text-[#2B2A28] dark:text-[#F7F4EE]"
               >
-                <item.icon className="w-8 h-8" />
-                <span className="text-sm font-medium">{item.label}</span>
+                Hi, I'm{' '}
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: 0.8,
+                  type: "spring",
+                  stiffness: 100 
+                }}
+                className="inline-block bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent relative pb-3"
+              >
+                Mikaella Gabrielle
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 1, delay: 1.5 }}
+                  className="absolute -bottom-1 left-0 h-1.5 bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] rounded-full"
+                />
+              </motion.span>
+            </h1>
+            
+            {/* Role text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="mb-10 mt-8"
+              style={{ marginBottom: '40px', marginTop: '60px' }}
+            >
+              <p className="text-2xl md:text-4xl lg:text-5xl font-bold leading-normal pb-1 relative z-10"
+              style={{
+                background: 'linear-gradient(to right, #354341, #4C7B7C)',
+                backgroundSize: '50% 100%',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                Front End Developer 
+              </p>
+            </motion.div>
+
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              className="text-xl md:text-2xl text-[#7A756D] dark:text-[#B8B8B8] mb-16 max-w-3xl mx-auto leading-relaxed"
+            >
+              Crafting{' '}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentWord}
+                  initial={{ opacity: 0, y: 30, rotateX: 90 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  exit={{ opacity: 0, y: -30, rotateX: -90 }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-block font-bold text-[#4C7B7B] dark:text-[#6E9A9A] px-3 py-1 rounded-lg bg-[#4C7B7B]/5 dark:bg-[#6E9A9A]/5"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {words[currentWord]}
+                </motion.span>
+              </AnimatePresence>{' '}
+              web experiences with modern technologies
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.4 }}
+              className="flex gap-6 justify-center flex-wrap mb-20"
+            >
+              <motion.a
+                href="#contact"
+                className="px-8 py-4 bg-[#4C7B7B] text-white rounded-xl font-medium text-base hover:bg-[#6E9A9A] transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="flex items-center gap-2">
+                  Get In Touch
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </motion.a>
+
+              <Link
+                to="/resume"
+                className="px-8 py-4 border-2 border-[#4C7B7B] text-[#4C7B7B] dark:text-[#6E9A9A] dark:border-[#6E9A9A] rounded-xl font-medium text-base hover:bg-[#4C7B7B] hover:text-white dark:hover:bg-[#6E9A9A] transition-all"
+              >
+                <span className="flex items-center gap-2">
+                  View Resume
+                  <Download className="w-4 h-4" />
+                </span>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.6 }}
+              className="flex justify-center gap-8 flex-wrap mb-24"
+            >
+              {[
+                { icon: Code2, label: 'Clean Code', color: 'from-[#4C7B7B] to-[#5A8A8A]' },
+                { icon: Palette, label: 'UI/UX Design', color: 'from-[#5A8A8A] to-[#6E9A9A]' },
+                { icon: Zap, label: 'Performance', color: 'from-[#6E9A9A] to-[#4C7B7B]' },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15,
+                    delay: 1.8 + index * 0.1,
+                  }}
+                  whileHover={{ 
+                    scale: 1.15, 
+                    y: -8,
+                    rotateY: 360,
+                  }}
+                  className="group relative"
+                >
+                  <div className="relative flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/50 dark:bg-[#1a1a1a]/50 backdrop-blur-sm border border-[#4C7B7B]/10 shadow-lg hover:shadow-2xl transition-all cursor-pointer">
+                    <motion.div
+                      className={`relative p-4 rounded-xl bg-gradient-to-br ${item.color}`}
+                      animate={{
+                        boxShadow: [
+                          '0 0 20px rgba(76,123,123,0.3)',
+                          '0 0 40px rgba(110,154,154,0.5)',
+                          '0 0 20px rgba(76,123,123,0.3)',
+                        ],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: index * 0.3,
+                      }}
+                    >
+                      <item.icon className="w-8 h-8 text-white" />
+                    </motion.div>
+                    
+                    <span className="text-sm font-bold text-[#2B2A28] dark:text-[#F7F4EE] group-hover:text-[#4C7B7B] dark:group-hover:text-[#6E9A9A] transition-colors">
+                      {item.label}
+                    </span>
+
+                    <div className="absolute top-2 left-2 w-3 h-3 border-l-2 border-t-2 border-[#4C7B7B]/30 rounded-tl-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute bottom-2 right-2 w-3 h-3 border-r-2 border-b-2 border-[#6E9A9A]/30 rounded-br-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.2 }}
+            className="flex justify-center pb-12 relative z-20"
+          >
+            <motion.a
+              href="#about"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-2 cursor-pointer"
+              style={{paddingTop: '48px'}}
+            >
+              <span className="text-xs font-semibold text-[#7A756D] dark:text-[#B8B8B8] tracking-wider">
+                SCROLL TO EXPLORE
+              </span>
+              <motion.div
+                className="w-6 h-10 border-2 border-[#4C7B7B]/40 rounded-full p-2 flex justify-center"
+                style={{backgroundColor: 'white'}}
+                whileHover={{ borderColor: 'rgba(76,123,123,0.8)' }}
+              >
+                {/* Scrolling dot */}
+
+                <motion.div
+                  className="w-2 h-2 rounded-full" 
+                  style={{ 
+                    backgroundColor: '#578586',
+                    display: 'block',          
+                    minHeight: '12px',         
+                    minWidth: '4px'    
+                  }}
+                  animate={{ y: [0, 5, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                />
               </motion.div>
-            ))}
+            </motion.a>
           </motion.div>
         </div>
       </section>
