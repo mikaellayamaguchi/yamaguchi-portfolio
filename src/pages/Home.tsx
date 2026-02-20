@@ -149,7 +149,7 @@ export function Home() {
   return (
     <div className="text-[#2B2A28] dark:text-[#F7F4EE]">
       <SEO 
-        title="Home - Front End Developer"
+        title="E-Portfolio"
         description="Mikaella Gabrielle S. Yamaguchi - Front End Developer crafting beautiful, responsive, and modern web experiences. View my portfolio of projects and get in touch."
       />
       
