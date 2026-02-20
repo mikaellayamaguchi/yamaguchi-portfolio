@@ -1,15 +1,37 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { Mail } from 'lucide-react';
 import logo from '../assets/img/e-portfolio-my-logo.png';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+
+  const handleFooterLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (path.startsWith('#')) {
+      e.preventDefault();
+      const sectionId = path.replace('#', '');
+      
+      if (location.pathname === '/') {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - offset;
+          
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      } else {
+        window.location.href = '/' + path;
+      }
+    }
+  };
 
   return (
     <footer className="relative py-20 px-4 sm:px-6 lg:px-8 bg-[#2B2A28] dark:bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
+          {/* Logo & Subtitle */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -18,13 +40,17 @@ export function Footer() {
           >
             <motion.div whileHover={{ scale: 1.05 }}>
               <img 
-                src={logo} 
-                alt="MY Portfolio Logo" 
-                className="w-12 h-12 rounded-full object-cover mb-4"
+                src={logo}
+                alt="MY Logo" 
+                className="w-12 h-12 rounded-full object-cover mb-4 shadow-lg"
               />
             </motion.div>
+            <p className="text-sm text-[#B8B8B8] text-center md:text-left">
+              Front End Developer
+            </p>
           </motion.div>
 
+          {/* Quick Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -41,14 +67,25 @@ export function Footer() {
                 { name: 'Resume', path: '/resume' },
               ].map((item) => (
                 <li key={item.name}>
-                  <Link to={item.path} className="text-[#B8B8B8] hover:text-[#6E9A9A] transition-colors text-sm">
-                    {item.name}
-                  </Link>
+                  {item.path.startsWith('#') ? (
+                    <a 
+                      href={item.path} 
+                      onClick={(e) => handleFooterLinkClick(e, item.path)}
+                      className="text-[#B8B8B8] hover:text-[#6E9A9A] transition-colors text-sm cursor-pointer"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link to={item.path} className="text-[#B8B8B8] hover:text-[#6E9A9A] transition-colors text-sm">
+                      {item.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
           </motion.div>
 
+          {/* Social Connect */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -83,6 +120,7 @@ export function Footer() {
           </motion.div>
         </div>
 
+        {/* Copyright */}
         <motion.div
           className="text-center pt-8 border-t border-white/10"
           initial={{ opacity: 0 }}
@@ -93,7 +131,7 @@ export function Footer() {
             © {currentYear} Mikaella Gabrielle S. Yamaguchi
           </p>
           <p className="text-xs text-[#7A756D] mt-1">
-            Frontend Developer
+            Front End Developer
           </p>
         </motion.div>
       </div>
