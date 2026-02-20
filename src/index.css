@@ -2385,3 +2385,16 @@ html {
   inherits: false;
   initial-value: 1;
 }
+
+@media (pointer: fine) {
+  body, 
+  a, 
+  button, 
+  input, 
+  textarea, 
+  select, 
+  [role="button"],
+  .cursor-pointer {
+    cursor: none !important;
+  }
+}
