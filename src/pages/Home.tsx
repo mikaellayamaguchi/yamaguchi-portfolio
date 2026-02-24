@@ -1,17 +1,87 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles, Download, Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
+import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles, Download, Calendar, ChevronRight, ChevronLeft, Maximize2, X } from 'lucide-react';
 import { Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SEO, TiltCard } from '../components/';
-import hauEcoquestImg from '../assets/img/project-hau-ecoquest.png';
-import wellnessApparelImg from '../assets/img/project-the-wellness-apparel.png';
-import chanelCloneImg from '../assets/img/project-chanel-clone-website.png';
+import hauEcoquestImg1 from '../assets/img/project-hau-ecoquest1.png';
+import hauEcoquestImg2 from '../assets/img/project-hau-ecoquest2.png';
+import hauEcoquestImg3 from '../assets/img/project-hau-ecoquest3.png';
+import hauEcoquestImg4  from '../assets/img/project-hau-ecoquest4.png';
+import wellnessApparelImg1 from '../assets/img/project-the-wellness-apparel1.png';
+import wellnessApparelImg2 from '../assets/img/project-the-wellness-apparel2.png';
+import wellnessApparelImg3 from '../assets/img/project-the-wellness-apparel3.png';
+import chanelCloneImg1 from '../assets/img/project-chanel-clone-website1.png';
+import chanelCloneImg2 from '../assets/img/project-chanel-clone-website-2.png';
+import chanelCloneImg3 from '../assets/img/project-chanel-clone-website-3.png';
+import chanelCloneImg4 from '../assets/img/project-chanel-clone-website-4.png';
 import profilePic from '../assets/img/my-picture.png';
 import blogRWDImg from '../assets/img/blog-responsive-web-design-image.png';
 import wdJourney from '../assets/img/blog-web-developer-journey.png';
-import danonos from '../assets/img/project-danonos-doughnuts-and-brownies.png';
+import danonos1 from '../assets/img/project-danonos-doughnuts-and-brownies1.png';
+import danonos2 from '../assets/img/project-danonos-doughnuts-and-brownies2.png';
+import danonos3 from '../assets/img/project-danonos-doughnuts-and-brownies3.png';
+
+
+const ProjectCarousel = ({ images, title }: { images: string[], title: string }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!images || !Array.isArray(images) || images.length === 0) return null;
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  return (
+    <div className="relative w-full h-[400px] flex items-center justify-center pt-10 select-none">
+
+      {images.map((img, idx) => {
+  
+        let stackIndex = idx - currentIndex;
+        if (stackIndex < 0) stackIndex += images.length;
+        
+
+        if (stackIndex > 2) return null;
+
+        const isFront = stackIndex === 0;
+
+        return (
+          <motion.div
+            key={`${title}-${idx}`}
+            className="absolute w-[80%] h-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-white border border-[#4C7B7B]/20 cursor-grab active:cursor-grabbing touch-none"
+            style={{ 
+              zIndex: images.length - stackIndex, 
+            }}
+         
+            drag={isFront ? "x" : false} 
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragEnd={(_, info) => {
+              if (Math.abs(info.offset.x) > 100) handleNext();
+            }}
+         
+            animate={{
+              scale: 1 - stackIndex * 0.05,   
+              x: isFront ? 0 : stackIndex * 25, 
+              y: isFront ? 0 : stackIndex * -15, 
+              opacity: 1 - stackIndex * 0.2,   
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          >
+            <img 
+              src={img} 
+              alt={title} 
+              className="w-full h-full object-cover pointer-events-none select-none" 
+            />
+            
+            {!isFront && <div className="absolute inset-0 bg-black/10" />}
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
 
 export function Home() {
+
   const [currentWord, setCurrentWord] = useState(0);
   const words = ['beautiful', 'responsive', 'modern', 'interactive'];
   
@@ -50,7 +120,7 @@ export function Home() {
     {
       title: 'HAU Ecoquest',
       description: 'Engineered a gamified web app with 10+ user profiles, achievements, and a community hub. Integrated MERN-stack for quest tracking and admin management for multiple users.',
-      image: hauEcoquestImg,
+      images: [ hauEcoquestImg1, hauEcoquestImg2, hauEcoquestImg3, hauEcoquestImg4 ],
       tags: ['React', 'Node.js', 'MongoDB', 'Express'],
       demoLink: 'https://hauecoquest.vercel.app',
       githubLink: 'https://github.com/Josh-Aguiluz/6WCSERVER-Final-Project',
@@ -58,7 +128,7 @@ export function Home() {
     {
       title: 'The Wellness Apparel',
       description: 'Developed an e-commerce site with product management and inventory tracking for 14 items. Optimized responsive design and user experience for all 14 product displays.',
-      image: wellnessApparelImg,
+      images: [ wellnessApparelImg1, wellnessApparelImg2, wellnessApparelImg3 ],
       tags: ['PHP', 'MySQL', 'Bootstrap'],
       demoLink: 'http://the-wellness-apparel.onlinewebshop.net',
       githubLink: 'https://github.com/gabewebd/the-wellness-apparel',
@@ -66,7 +136,7 @@ export function Home() {
     {
       title: 'Chanel Website Clone',
       description: 'Created a replica of the Chanel website with product displays, navigation, and home page layout. Focused on responsive design and translating real-world UI into functional frontend code.',
-      image: chanelCloneImg,
+      images: [ chanelCloneImg1, chanelCloneImg2, chanelCloneImg3, chanelCloneImg4 ],
       tags: ['HTML', 'CSS', 'JavaScript'],
       demoLink: 'https://prelim-project-thefourwhoadore.netlify.app/home',
       githubLink: 'https://github.com/gabewebd/6AWEB-TheFourWhoAdore',
@@ -74,7 +144,7 @@ export function Home() {
     {
       title: 'Danono\'s Doughnuts and Brownies',
       description: 'Built Danono’s website showcasing doughnuts and signature refreshers. Focused on responsive design, product display layout, and translating the café’s vibrant branding into an interactive, user-friendly frontend experience.',
-      image: danonos,
+      images: [ danonos1, danonos2, danonos3 ],
       tags: ['PHP', 'CSS'],
       demoLink: 'https://danonos.com',
       githubLink: 'https://github.com/gabewebd/WSEA',
@@ -329,7 +399,7 @@ export function Home() {
               transition={{ delay: 1.2 }}
               className="text-xl md:text-2xl text-[#7A756D] dark:text-[#B8B8B8] mb-16 max-w-3xl mx-auto leading-relaxed"
             >
-              Crafting{' '}
+              Creating{' '}
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentWord}
@@ -897,43 +967,30 @@ export function Home() {
 
       {/* Featured Projects Section */}
       <section id="projects" className="py-32 px-4 bg-[#F7F4EE] dark:bg-[#0a0a0a] relative overflow-hidden">
+        
+        {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
           <motion.div
             className="absolute top-[20%] left-[10%] w-64 h-64 rounded-full bg-[#4C7B7B]/10 blur-[60px]"
-            animate={{
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+            animate={{ scale: [1, 1.2, 1], x: [0, 50, 0], y: [0, 30, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
             className="absolute bottom-[20%] right-[10%] w-80 h-80 rounded-full bg-[#6E9A9A]/10 blur-[60px]"
-            animate={{
-              scale: [1, 1.3, 1],
-              x: [0, -50, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: 1,
-            }}
+            animate={{ scale: [1, 1.3, 1], x: [0, -50, 0], y: [0, -30, 0] }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
           />
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
+          
+          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
             <motion.div
               initial={{ scale: 0 }}
@@ -946,7 +1003,7 @@ export function Home() {
                 Portfolio Showcase
               </div>
             </motion.div>
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-[#2B2A28] dark:text-[#F7F4EE]">
               Featured <span className="bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent">Projects</span>
             </h2>
             <motion.div 
@@ -957,193 +1014,140 @@ export function Home() {
               className="h-1.5 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] rounded-full mx-auto mb-6"
             />
             <p className="text-[#7A756D] dark:text-[#B8B8B8] text-lg max-w-2xl mx-auto">
-              Explore my latest work showcasing innovative solutions and modern web technologies
+              Explore my latest work showcasing innovative solutions and modern web technologies.
             </p>
           </motion.div>
 
-          {/* Project Cards */}
-          <div className="space-y-24">
-            {featuredProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className={`grid md:grid-cols-2 gap-8 items-center ${
-                  index % 2 === 1 ? 'md:flex-row-reverse' : ''
-                }`}
-              >
-                {/* Project Image */}
-                <motion.div
-                  className={`relative group ${index % 2 === 1 ? 'md:order-2' : ''}`}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+          {/* Project Cards List */}
+<div className="space-y-32" style={{display: 'flex', flexDirection: 'column', gap: '80px'}}>
+  {featuredProjects.map((project, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1 }}
+      style={{gap: '10%'}}
+      className={`grid md:grid-cols-2 gap-10 lg:gap-16 items-center ${
+        index % 2 === 1 ? 'md:flex-row-reverse' : ''
+      }`}
+    >
       
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#4C7B7B]/20 to-[#6E9A9A]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                    
-                    {/* Image */}
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-[400px] object-cover"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.5 }}
-                    />
-                    
-                    {/* Floating number badge */}
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      whileInView={{ scale: 1, rotate: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.3 }}
-                      className="absolute top-6 right-6 w-16 h-16 bg-gradient-to-br from-[#4C7B7B] to-[#6E9A9A] rounded-2xl flex items-center justify-center shadow-xl z-20"
-                    >
-                      <span className="text-white text-2xl font-bold">0{index + 1}</span>
-                    </motion.div>
+      {/* Left Side: The Carousel */}
+      <motion.div
+        className={`relative ${index % 2 === 1 ? 'md:order-2' : ''}`}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+      >
+        <ProjectCarousel images={project.images} title={project.title} />
+        
+     
+        <motion.div
+          className={`absolute -z-10 w-full h-full bg-gradient-to-br from-[#4C7B7B]/10 to-[#6E9A9A]/10 rounded-3xl ${
+            index % 2 === 1 ? '-left-6 -top-6' : '-right-6 -bottom-6'
+          }`}
+          animate={{ rotate: [0, 5, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </motion.div>
 
-                    {/* Live demo button overlay */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                      className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20"
-                    >
-                      <a
-                        href={project.demoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-8 py-4 bg-white dark:bg-[#1a1a1a] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl font-bold shadow-xl hover:scale-110 transition-transform flex items-center gap-3"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                        View Live Demo
-                      </a>
-                    </motion.div>
-                  </div>
+      {/* Right Side: Project Details */}
+      <motion.div
+        initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+        className={`space-y-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}
+      >
+        <div className="flex items-center gap-4">
+          {/* THE NEW BADGE POSITION: Right beside the Title */}
+          <motion.div
+            initial={{ scale: 0, rotate: -45 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#4C7B7B] to-[#6E9A9A] rounded-xl flex items-center justify-center shadow-lg border-2 border-white dark:border-[#0a0a0a]"
+          >
+            <span className="text-white text-lg font-bold">0{index + 1}</span>
+          </motion.div>
 
-                  <motion.div
-                    className={`absolute -z-10 w-full h-full bg-gradient-to-br from-[#4C7B7B]/10 to-[#6E9A9A]/10 rounded-3xl ${
-                      index % 2 === 1 ? '-left-6 -top-6' : '-right-6 -bottom-6'
-                    }`}
-                    animate={{
-                      rotate: [0, 5, 0],
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                  />
-                </motion.div>
+          <span className="inline-block px-4 py-2 bg-[#4C7B7B]/10 text-[#4C7B7B] dark:text-[#6E9A9A] rounded-lg text-sm font-semibold">
+            {project.tags[0]} Project
+          </span>
+        </div>
 
-                {/* Project Details */}
-                <motion.div
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
-                  className={`space-y-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}
-                >
-                  {/* Project category */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-                  >
-                    <span className="inline-block px-4 py-2 bg-[#4C7B7B]/10 text-[#4C7B7B] dark:text-[#6E9A9A] rounded-lg text-sm font-semibold">
-                      {project.tags[0]} Project
-                    </span>
-                  </motion.div>
+        <motion.h3
+          className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-[#2B2A28] dark:text-[#F7F4EE]"
+        >
+          {project.title}
+        </motion.h3>
 
-                  {/* Project title */}
-                  <motion.h3
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
-                    className="text-3xl md:text-4xl font-bold leading-tight"
-                  >
-                    {project.title}
-                  </motion.h3>
+        <motion.p
+          className="text-[#7A756D] dark:text-[#B8B8B8] text-lg leading-relaxed"
+        >
+          {project.description}
+        </motion.p>
 
-                  {/* Project description */}
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
-                    className="text-[#7A756D] dark:text-[#B8B8B8] text-lg leading-relaxed"
-                  >
-                    {project.description}
-                  </motion.p>
-
-                  {/* Technology stack */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.6 }}
-                  >
-                    <p className="text-sm font-semibold text-[#7A756D] dark:text-[#B8B8B8] mb-3">
-                      TECH STACK
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      {project.tags.map((tag, i) => (
-                        <motion.span
-                          key={i}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.6 + i * 0.05 }}
-                          whileHover={{ scale: 1.1, y: -3 }}
-                          className="px-5 py-2.5 bg-white dark:bg-[#1a1a1a] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl text-sm font-bold border-2 border-[#4C7B7B]/20 hover:border-[#4C7B7B] transition-all shadow-md cursor-default"
-                        >
-                          {tag}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  {/* Action button */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 + 0.7 }}
-                  >
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all group"
-                    >
-                      <span>View GitHub Link</span>
-                      <ExternalLink className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-                    </a>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
+        {/* Tech Stack */}
+        <div className="space-y-3">
+          <p className="text-sm font-semibold text-[#7A756D] dark:text-[#B8B8B8] uppercase tracking-wider" style={{paddingBottom: '10px'}}>
+            Tech Stack
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {project.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="px-4 py-2 bg-white dark:bg-[#1a1a1a] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl text-sm font-bold border border-[#4C7B7B]/20 shadow-sm"
+              >
+                {tag}
+              </span>
             ))}
           </div>
         </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-4 pt-4">
+          <a
+            href={project.demoLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group"
+          >
+            <Globe className="w-4 h-4" />
+            <span>Live Demo</span>
+          </a>
+          
+          <a
+            href={project.githubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#4C7B7B] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl font-bold hover:bg-[#4C7B7B] hover:text-white transition-all group"
+          >
+            <Code2 className="w-4 h-4" />
+            <span>Source Code</span>
+          </a>
+        </div>
+      </motion.div>
+      
+    </motion.div>
+  ))}
+</div>
+</div>
       </section>
       
-      {/* Blog Section - Spacious Row Layout with High Interactivity */}
+      {/* Blog Section */}
       <section
         id="blog"
         className="py-32 px-4 bg-[#F7F4EE] dark:bg-[#0a0a0a] relative overflow-hidden"
       >
         <div className="max-w-6xl mx-auto relative z-10">
 
-          {/* Section Title - Coherent & Centered */}
+          {/* Section Title */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-24" // Increased bottom margin for more breathing room
+            className="text-center mb-24" 
           >
             <motion.div
               initial={{ scale: 0 }}
