@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles, Download } from 'lucide-react';
+import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles, Download, Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SEO, TiltCard } from '../components/';
@@ -7,6 +7,9 @@ import hauEcoquestImg from '../assets/img/project-hau-ecoquest.png';
 import wellnessApparelImg from '../assets/img/project-the-wellness-apparel.png';
 import chanelCloneImg from '../assets/img/project-chanel-clone-website.png';
 import profilePic from '../assets/img/my-picture.png';
+import blogRWDImg from '../assets/img/blog-responsive-web-design-image.png';
+import wdJourney from '../assets/img/blog-web-developer-journey.png';
+import danonos from '../assets/img/project-danonos-doughnuts-and-brownies.png';
 
 export function Home() {
   const [currentWord, setCurrentWord] = useState(0);
@@ -50,7 +53,7 @@ export function Home() {
       image: hauEcoquestImg,
       tags: ['React', 'Node.js', 'MongoDB', 'Express'],
       demoLink: 'https://hauecoquest.vercel.app',
-      githubLink: '#',
+      githubLink: 'https://github.com/Josh-Aguiluz/6WCSERVER-Final-Project',
     },
     {
       title: 'The Wellness Apparel',
@@ -58,7 +61,7 @@ export function Home() {
       image: wellnessApparelImg,
       tags: ['PHP', 'MySQL', 'Bootstrap'],
       demoLink: 'http://the-wellness-apparel.onlinewebshop.net',
-      githubLink: '#',
+      githubLink: 'https://github.com/gabewebd/the-wellness-apparel',
     },
     {
       title: 'Chanel Website Clone',
@@ -66,8 +69,37 @@ export function Home() {
       image: chanelCloneImg,
       tags: ['HTML', 'CSS', 'JavaScript'],
       demoLink: 'https://prelim-project-thefourwhoadore.netlify.app/home',
-      githubLink: '#',
+      githubLink: 'https://github.com/gabewebd/6AWEB-TheFourWhoAdore',
     },
+    {
+      title: 'Danono\'s Doughnuts and Brownies',
+      description: 'Built Danono’s website showcasing doughnuts and signature refreshers. Focused on responsive design, product display layout, and translating the café’s vibrant branding into an interactive, user-friendly frontend experience.',
+      image: danonos,
+      tags: ['PHP', 'CSS'],
+      demoLink: 'https://danonos.com',
+      githubLink: 'https://github.com/gabewebd/WSEA',
+    }
+  ];
+
+  const blogPosts = [
+    {
+      title: 'From Curiosity to Code: My Journey as a Web Developer',
+      category: 'Personal Growth',
+      date: 'Oct 15, 2024',
+      readTime: '5 min read',
+      excerpt: 'How my fascination with beautiful websites turned into a passion for front-end development, and the lessons I learned while building my first React projects.',
+      image: wdJourney,
+      link: '#' 
+    },
+    {
+      title: 'Essential Tips for Pixel-Perfect Responsive Design',
+      category: 'Tutorial',
+      date: 'Nov 28, 2024',
+      readTime: '7 min read',
+      excerpt: 'Mastering fluid layouts isn’t just about media queries. Discover the key principles of CSS Grid and Flexbox to make your UI look flawless on any screen.',
+      image: blogRWDImg,
+      link: '#'
+    }
   ];
 
   const certifications = [
@@ -261,7 +293,7 @@ export function Home() {
                 }}
                 className="inline-block bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent relative pb-3"
               >
-                Mikaella Gabrielle
+                Mikaella Yamaguchi
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: '100%' }}
@@ -629,9 +661,8 @@ export function Home() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="relative pl-6 border-l-4 border-[#4C7B7B]/30"
                 >
-                  I'm a passionate <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-bold">Front End Developer</strong> currently 
-                  pursuing my degree in Information Technology with a specialization in Web Development at <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold">Holy Angel University</strong>. 
-                  My interest in coding sparked when I discovered amazing websites with incredible interactivity and design.
+                  I'm a <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-bold">Front End Developer</strong> currently studying Information Technology with a focus on Web Development at <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold">Holy Angel University</strong>. 
+                  I got into coding after discovering websites with amazing interactivity and design and wanted to learn how they were built. Since then, I have been focused on turning ideas into clean and engaging experiences on the web.
                 </motion.p>
                 
                 <motion.p
@@ -1083,18 +1114,125 @@ export function Home() {
                     transition={{ duration: 0.6, delay: index * 0.1 + 0.7 }}
                   >
                     <a
-                      href={project.demoLink}
+                      href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all group"
                     >
-                      <span>Explore Project</span>
+                      <span>View GitHub Link</span>
                       <ExternalLink className="w-5 h-5 group-hover:rotate-45 transition-transform" />
                     </a>
                   </motion.div>
                 </motion.div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Blog Section - Spacious Row Layout with High Interactivity */}
+      <section
+        id="blog"
+        className="py-32 px-4 bg-[#F7F4EE] dark:bg-[#0a0a0a] relative overflow-hidden"
+      >
+        <div className="max-w-6xl mx-auto relative z-10">
+
+          {/* Section Title - Coherent & Centered */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-24" // Increased bottom margin for more breathing room
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              className="inline-block mb-4"
+            >
+              <div className="px-6 py-2 bg-[#4C7B7B]/10 rounded-full text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold text-sm">
+                My Journal
+              </div>
+            </motion.div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#2B2A28] dark:text-[#F7F4EE]">
+              Blog & <span className="bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent">Writing</span>
+            </h2>
+            
+            <motion.div 
+              initial={{ width: 0 }}
+              whileInView={{ width: 80 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="h-1.5 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] rounded-full mx-auto mb-6"
+            />
+            
+            <p className="mt-3 text-[#7A756D] dark:text-[#B8B8B8] max-w-xl mx-auto text-lg" style={{ paddingBottom: '50px' }}>
+              Notes, experiments, and lessons from building on the web.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-24 gap-x-16 lg:gap-x-24" style={{gap: '30px'}}>
+            
+            {blogPosts.map((post, index) => (
+              <motion.a
+                key={index}
+                href={post.link}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="group flex flex-col bg-white dark:bg-[#151515] rounded-[2.5rem] overflow-hidden border-2 border-transparent hover:border-[#4C7B7B]/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(76,123,123,0.3)] cursor-pointer"
+              >
+
+                <div className="w-full h-64 lg:h-72 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-[#4C7B7B]/10 group-hover:opacity-0 transition-opacity duration-500 z-10 mix-blend-multiply" />
+                  
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  />
+                  
+                  <div className="absolute top-6 left-6 z-20">
+                    <span className="px-5 py-2 bg-white/95 dark:bg-black/90 backdrop-blur-md text-[#4C7B7B] dark:text-[#6E9A9A] text-xs font-bold rounded-xl uppercase tracking-wider shadow-lg">
+                      {post.category}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-8 lg:p-10 flex flex-col flex-1" style={{gap: '8px'}}>
+                  
+                  <div className="text-sm font-bold text-[#7A756D] dark:text-[#B8B8B8] mb-4 flex items-center gap-3">
+                    <span className="flex items-center gap-1.5" style={{gap: '5px'}}><Calendar className="w-4 h-4" /> {post.date}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#4C7B7B]/40" />
+                    <span className="flex items-center gap-1.5" style={{gap: '5px'}}><Clock className="w-4 h-4" /> {post.readTime}</span>
+                  </div>
+             
+                  <h3 className="text-2xl lg:text-3xl font-bold leading-snug text-[#2B2A28] dark:text-[#F7F4EE] mb-5 transition-colors duration-300 group-hover:text-[#4C7B7B] dark:group-hover:text-[#6E9A9A]">
+                    {post.title}
+                  </h3>
+                
+                  <p className="text-[#7A756D] dark:text-[#B8B8B8] leading-relaxed mb-10 flex-1 text-lg">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="mt-auto flex items-center justify-between border-t border-[#4C7B7B]/10 pt-6" style={{paddingTop: '8px'}}>
+                    <span className="font-bold text-[#4C7B7B] dark:text-[#6E9A9A] text-lg">
+                      Read Article
+                    </span>
+                    <div className="w-12 h-12 rounded-full bg-[#4C7B7B]/10 group-hover:bg-[#4C7B7B] group-hover:text-white text-[#4C7B7B] dark:text-[#6E9A9A] flex items-center justify-center transition-all duration-300 shadow-sm group-hover:shadow-md">
+     
+                      <ArrowRight className="w-5 h-5 group-hover:-rotate-45 group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                  </div>
+
+                </div>
+              </motion.a>
+            ))}
+
           </div>
         </div>
       </section>
