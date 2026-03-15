@@ -106,7 +106,7 @@ export function BlogPost() {
                 <p 
                   key={index} 
                   className="text-xl md:text-2xl font-medium text-[#2B2A28] dark:text-[#F7F4EE] leading-relaxed"
-                  style={{ paddingBottom: '30px' }} // Custom inline padding
+                  style={{ paddingBottom: '30px' }} 
                 >
                   <span className="text-7xl text-[#4C7B7B] font-black float-left mr-5 mt-2 leading-none">
                     {block.text.charAt(0)}
@@ -121,7 +121,7 @@ export function BlogPost() {
                 <h2 
                   key={index} 
                   className="text-3xl md:text-4xl font-bold text-[#2B2A28] dark:text-[#F7F4EE] tracking-tight"
-                  style={{ paddingTop: '50px', paddingBottom: '25px' }} // Custom inline padding
+                  style={{ paddingTop: '50px', paddingBottom: '25px' }} 
                 >
                   {block.text}
                 </h2>
@@ -133,7 +133,7 @@ export function BlogPost() {
                 <blockquote 
                   key={index} 
                   className="pl-8 border-l-4 border-[#4C7B7B] bg-[#4C7B7B]/5 dark:bg-[#4C7B7B]/10 pr-8 rounded-r-2xl italic text-xl md:text-2xl font-medium text-[#2B2A28] dark:text-[#F7F4EE] shadow-sm"
-                  style={{ paddingTop: '35px', paddingBottom: '35px', marginTop: '40px', marginBottom: '40px', paddingLeft: '20px' }} // Custom inline padding
+                  style={{ paddingTop: '35px', paddingBottom: '35px', marginTop: '40px', marginBottom: '40px', paddingLeft: '20px' }} 
                 >
                   "{block.text}"
                 </blockquote>
@@ -144,7 +144,7 @@ export function BlogPost() {
             return (
               <p 
                 key={index}
-                style={{ paddingBottom: '25px' }} // Custom inline padding
+                style={{ paddingBottom: '25px' }} 
               >
                 {block.text}
               </p>
@@ -154,7 +154,7 @@ export function BlogPost() {
           {/* Bottom Action Bar */}
           <div 
             className="flex items-center justify-center border-t border-[#4C7B7B]/15"
-            style={{ paddingTop: '60px', marginTop: '60px' }} // Custom inline padding
+            style={{ paddingTop: '60px', marginTop: '60px' }} 
           >
             <Link 
               to="/#blog" 

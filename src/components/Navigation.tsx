@@ -15,7 +15,7 @@ export function Navigation({ darkMode, setDarkMode }: { darkMode: boolean; setDa
       setScrolled(window.scrollY > 50);
       
       if (location.pathname === '/') {
-        const sections = ['home', 'about', 'projects', 'contact'];
+        const sections = ['home', 'about', 'projects', 'blog', 'contact'];
         const scrollPosition = window.scrollY + 100;
         
         for (const sectionId of sections) {
@@ -39,33 +39,36 @@ export function Navigation({ darkMode, setDarkMode }: { darkMode: boolean; setDa
     if (location.pathname === '/resume') {
       setActiveSection('resume');
     } else if (location.pathname === '/') {
-      setActiveSection('home');
+      if (!location.hash) {
+        setActiveSection('home');
+      }
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   const navLinks = [
     { name: 'Home', path: '/', isAnchor: false, sectionId: 'home' },
-    { name: 'About', path: '#about', isAnchor: true, sectionId: 'about' },
-    { name: 'Contact', path: '#contact', isAnchor: true, sectionId: 'contact' },
+    { name: 'About', path: '/#about', isAnchor: true, sectionId: 'about' },
+    { name: 'Blog', path: '/#blog', isAnchor: true, sectionId: 'blog' },
+    { name: 'Contact', path: '/#contact', isAnchor: true, sectionId: 'contact' },
     { name: 'Resume', path: '/resume', isAnchor: false, sectionId: 'resume' },
   ];
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string, sectionId: string) => {
-    if (path.startsWith('#')) {
-      e.preventDefault();
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const offset = 80;
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - offset;
-        
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-        setActiveSection(sectionId);
-        setIsOpen(false);
+    if (path.includes('#')) {
+      if (location.pathname === '/') {
+        e.preventDefault();
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - offset;
+          
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          setActiveSection(sectionId);
+        }
       }
-    } else {
-      setIsOpen(false);
     }
+    setIsOpen(false); 
   };
 
   return (
