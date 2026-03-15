@@ -58,6 +58,16 @@ export function Resume() {
       date: '2024',
       credentialId: null,
     },
+    {
+      title: 'AWS Academy Graduate - Cloud Foundations - Training Badge',
+      issuer: 'Amazon Web Services Training and Certification',
+      year: '2026',
+    },
+    {
+      title: 'JavaScript Essentials 1',
+      issuer: 'Cisco',
+      year: '2024',
+    },
   ];
 
   // Technical and Soft skills
