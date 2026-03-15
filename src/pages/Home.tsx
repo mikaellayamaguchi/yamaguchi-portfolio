@@ -1,12 +1,12 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles, Download, Calendar, ChevronRight, ChevronLeft, Maximize2, X } from 'lucide-react';
-import { Link } from 'react-router';
+import { ArrowRight, Code2, Palette, Zap, ExternalLink, Award, Mail, Phone, MapPin, Send, CheckCircle, Globe, Layout, Smartphone, Server, Database, Lightbulb, Users, Clock, BookOpen, Target, Sparkles, Download, Calendar, ChevronRight, ChevronLeft, Maximize2, X, Github, Linkedin, Figma, LayoutTemplate} from 'lucide-react';
+import { Link, useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SEO, TiltCard } from '../components/';
 import hauEcoquestImg1 from '../assets/img/project-hau-ecoquest1.png';
 import hauEcoquestImg2 from '../assets/img/project-hau-ecoquest2.png';
 import hauEcoquestImg3 from '../assets/img/project-hau-ecoquest3.png';
-import hauEcoquestImg4  from '../assets/img/project-hau-ecoquest4.png';
+import hauEcoquestImg4 from '../assets/img/project-hau-ecoquest4.png';
 import wellnessApparelImg1 from '../assets/img/project-the-wellness-apparel1.png';
 import wellnessApparelImg2 from '../assets/img/project-the-wellness-apparel2.png';
 import wellnessApparelImg3 from '../assets/img/project-the-wellness-apparel3.png';
@@ -14,6 +14,8 @@ import chanelCloneImg1 from '../assets/img/project-chanel-clone-website1.png';
 import chanelCloneImg2 from '../assets/img/project-chanel-clone-website-2.png';
 import chanelCloneImg3 from '../assets/img/project-chanel-clone-website-3.png';
 import chanelCloneImg4 from '../assets/img/project-chanel-clone-website-4.png';
+import skyfestImg1 from '../assets/img/project-skyfest1.png';
+import skyfestImg2 from '../assets/img/project-skyfest2.png';
 import profilePic from '../assets/img/my-picture.png';
 import blogRWDImg from '../assets/img/blog-responsive-web-design-image.png';
 import wdJourney from '../assets/img/blog-web-developer-journey.png';
@@ -35,10 +37,10 @@ const ProjectCarousel = ({ images, title }: { images: string[], title: string })
     <div className="relative w-full h-[400px] flex items-center justify-center pt-10 select-none">
 
       {images.map((img, idx) => {
-  
+
         let stackIndex = idx - currentIndex;
         if (stackIndex < 0) stackIndex += images.length;
-        
+
 
         if (stackIndex > 2) return null;
 
@@ -48,30 +50,30 @@ const ProjectCarousel = ({ images, title }: { images: string[], title: string })
           <motion.div
             key={`${title}-${idx}`}
             className="absolute w-[80%] h-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-white border border-[#4C7B7B]/20 cursor-grab active:cursor-grabbing touch-none"
-            style={{ 
-              zIndex: images.length - stackIndex, 
+            style={{
+              zIndex: images.length - stackIndex,
             }}
-         
-            drag={isFront ? "x" : false} 
+
+            drag={isFront ? "x" : false}
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={(_, info) => {
               if (Math.abs(info.offset.x) > 100) handleNext();
             }}
-         
+
             animate={{
-              scale: 1 - stackIndex * 0.05,   
-              x: isFront ? 0 : stackIndex * 25, 
-              y: isFront ? 0 : stackIndex * -15, 
-              opacity: 1 - stackIndex * 0.2,   
+              scale: 1 - stackIndex * 0.05,
+              x: isFront ? 0 : stackIndex * 25,
+              y: isFront ? 0 : stackIndex * -15,
+              opacity: 1 - stackIndex * 0.2,
             }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
-            <img 
-              src={img} 
-              alt={title} 
-              className="w-full h-full object-cover pointer-events-none select-none" 
+            <img
+              src={img}
+              alt={title}
+              className="w-full h-full object-cover pointer-events-none select-none"
             />
-            
+
             {!isFront && <div className="absolute inset-0 bg-black/10" />}
           </motion.div>
         );
@@ -81,10 +83,25 @@ const ProjectCarousel = ({ images, title }: { images: string[], title: string })
 };
 
 export function Home() {
+  const location = useLocation(); 
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100); 
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
 
   const [currentWord, setCurrentWord] = useState(0);
   const words = ['beautiful', 'responsive', 'modern', 'interactive'];
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -118,7 +135,7 @@ export function Home() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "16754f68-9a8c-4000-8e2b-108faae7f538", 
+          access_key: "16754f68-9a8c-4000-8e2b-108faae7f538",
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -131,8 +148,8 @@ export function Home() {
 
       if (result.success) {
         setFormStatus('success');
-        setFormData({ name: '', email: '', message: '' }); 
-        setTimeout(() => setFormStatus('idle'), 3000);    
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setFormStatus('idle'), 3000);
       } else {
         console.error("Error from Web3Forms:", result);
         setFormStatus('error');
@@ -147,33 +164,46 @@ export function Home() {
 
   const featuredProjects = [
     {
+      title: 'Skyfest',
+      role: 'Front End Developer',
+      description: 'A debut multi-page project developed as an introduction to front-end engineering. Created a responsive event platform for a balloon festival featuring a custom JavaScript-driven modal gallery and a dynamic schedule grid. Focused on mastering DOM manipulation, mobile-first CSS layouts, and cross-browser deployment using GitHub Pages.',
+      images: [skyfestImg1, skyfestImg2],
+      tags: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
+      demoLink: 'https://mikaellayamaguchi.github.io/skyfest/index.html',
+      githubLink: 'https://github.com/mikaellayamaguchi/skyfest',
+    },
+    {
       title: 'HAU Ecoquest',
+      role: 'Front End Developer',
       description: 'Engineered a gamified web app with 10+ user profiles, achievements, and a community hub. Integrated MERN-stack for quest tracking and admin management for multiple users.',
-      images: [ hauEcoquestImg1, hauEcoquestImg2, hauEcoquestImg3, hauEcoquestImg4 ],
+      images: [hauEcoquestImg1, hauEcoquestImg2, hauEcoquestImg3, hauEcoquestImg4],
       tags: ['React', 'Node.js', 'MongoDB', 'Express'],
       demoLink: 'https://hauecoquest.vercel.app',
       githubLink: 'https://github.com/Josh-Aguiluz/6WCSERVER-Final-Project',
     },
     {
       title: 'The Wellness Apparel',
+      role: 'Front End Developer',
       description: 'Developed an e-commerce site with product management and inventory tracking for 14 items. Optimized responsive design and user experience for all 14 product displays.',
-      images: [ wellnessApparelImg1, wellnessApparelImg2, wellnessApparelImg3 ],
+      images: [wellnessApparelImg1, wellnessApparelImg2, wellnessApparelImg3],
       tags: ['PHP', 'MySQL', 'Bootstrap'],
       demoLink: 'http://the-wellness-apparel.onlinewebshop.net',
       githubLink: 'https://github.com/gabewebd/the-wellness-apparel',
     },
     {
       title: 'Chanel Website Clone',
+      role: 'Front End Developer',
       description: 'Created a replica of the Chanel website with product displays, navigation, and home page layout. Focused on responsive design and translating real-world UI into functional frontend code.',
-      images: [ chanelCloneImg1, chanelCloneImg2, chanelCloneImg3, chanelCloneImg4 ],
+      images: [chanelCloneImg1, chanelCloneImg2, chanelCloneImg3, chanelCloneImg4],
       tags: ['HTML', 'CSS', 'JavaScript'],
       demoLink: 'https://prelim-project-thefourwhoadore.netlify.app/home',
       githubLink: 'https://github.com/gabewebd/6AWEB-TheFourWhoAdore',
     },
     {
       title: 'Danono\'s Doughnuts and Brownies',
+      role: 'Front End Developer',
       description: 'Built Danono’s website showcasing doughnuts and signature refreshers. Focused on responsive design, product display layout, and translating the café’s vibrant branding into an interactive, user-friendly frontend experience.',
-      images: [ danonos1, danonos2, danonos3 ],
+      images: [danonos1, danonos2, danonos3],
       tags: ['PHP', 'CSS'],
       demoLink: 'https://danonos.com',
       githubLink: 'https://github.com/gabewebd/WSEA',
@@ -185,19 +215,19 @@ export function Home() {
       title: 'From Curiosity to Code: My Journey as a Web Developer',
       category: 'Personal Growth',
       date: 'Oct 15, 2024',
-      readTime: '5 min read',
+      readTime: '3 min read',
       excerpt: 'How my fascination with beautiful websites turned into a passion for front-end development, and the lessons I learned while building my first React projects.',
       image: wdJourney,
-      link: '#' 
+      link: '/blog/journey'
     },
     {
       title: 'Essential Tips for Pixel-Perfect Responsive Design',
       category: 'Tutorial',
       date: 'Nov 28, 2024',
-      readTime: '7 min read',
+      readTime: '4 min read',
       excerpt: 'Mastering fluid layouts isn’t just about media queries. Discover the key principles of CSS Grid and Flexbox to make your UI look flawless on any screen.',
       image: blogRWDImg,
-      link: '#'
+      link: '/blog/responsive-design'
     }
   ];
 
@@ -224,21 +254,34 @@ export function Home() {
       issuer: 'CompTIA',
       year: '2024',
     },
+    {
+      title: 'AWS Academy Graduate - Cloud Foundations - Training Badge',
+      issuer: 'Amazon Web Services Training and Certification',
+      year: '2026',
+    },
+    {
+      title: 'JavaScript Essentials 1',
+      issuer: 'Cisco',
+      year: '2024',
+    }
   ];
 
   const skills = [
     { name: 'HTML5', level: 95, icon: Globe, category: 'Frontend' },
     { name: 'CSS3', level: 93, icon: Layout, category: 'Frontend' },
     { name: 'JavaScript', level: 90, icon: Code2, category: 'Frontend' },
-    { name: 'React', level: 88, icon: Code2, category: 'Frontend' },
+    { name: 'React, Angular, Vue', level: 88, icon: Code2, category: 'Frontend' },
     { name: 'Tailwind CSS', level: 92, icon: Layout, category: 'Frontend' },
     { name: 'Responsive Design', level: 95, icon: Smartphone, category: 'Frontend' },
     { name: 'Node.js', level: 85, icon: Server, category: 'Backend' },
     { name: 'Express', level: 82, icon: Server, category: 'Backend' },
     { name: 'MongoDB', level: 80, icon: Database, category: 'Backend' },
-    { name: 'PostgreSQL', level: 78, icon: Database, category: 'Backend' },
     { name: 'REST APIs', level: 88, icon: Server, category: 'Backend' },
+    { name: 'MySQL', level: 88, icon: Database, category: 'Backend' },
     { name: 'Git & GitHub', level: 90, icon: Code2, category: 'Tools' },
+    { name: 'Figma', level: 90, icon: Figma, category: 'Tools' },
+    { name: 'Canva', level: 100, icon: Palette, category: 'Tools' },
+    { name: 'WordPress', level: 90, icon: LayoutTemplate, category: 'Tools' },
   ];
 
   const softSkills = [
@@ -264,10 +307,16 @@ export function Home() {
       link: 'mailto:mikaellayamaguchi23@gmail.com',
     },
     {
-      icon: Phone,
-      label: 'Messenger',
-      value: 'facebook.com/m/mikaellayamaguchi23',
-      link: 'https://m.me/mikaellayamaguchi23',
+      icon: Linkedin,
+      label: 'LinkedIn',
+      value: 'Connect with me',
+      link: 'https://www.linkedin.com/in/mika-yamaguchi-053532350/', 
+    },
+    {
+      icon: Github,
+      label: 'GitHub',
+      value: 'View my repositories',
+      link: 'https://github.com/mikaellayamaguchi', 
     },
     {
       icon: MapPin,
@@ -279,11 +328,11 @@ export function Home() {
 
   return (
     <div className="text-[#2B2A28] dark:text-[#F7F4EE]">
-      <SEO 
+      <SEO
         title="E-Portfolio"
         description="Mikaella Gabrielle S. Yamaguchi - Front End Developer crafting beautiful, responsive, and modern web experiences. View my portfolio of projects and get in touch."
       />
-      
+
       {/* Hero Sections */}
       <section id="home" className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden pt-32 pb-32">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -316,7 +365,7 @@ export function Home() {
               delay: 2,
             }}
           />
-          
+
           <div className="absolute inset-0 bg-[linear-gradient(rgba(76,123,123,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(76,123,123,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
         </div>
 
@@ -324,11 +373,11 @@ export function Home() {
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 200, 
+            transition={{
+              type: "spring",
+              stiffness: 200,
               damping: 20,
-              delay: 0.2 
+              delay: 0.2
             }}
             className="inline-block mb-12"
             style={{ marginTop: '48px' }}
@@ -384,11 +433,11 @@ export function Home() {
               <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ 
-                  duration: 0.8, 
+                transition={{
+                  duration: 0.8,
                   delay: 0.8,
                   type: "spring",
-                  stiffness: 100 
+                  stiffness: 100
                 }}
                 className="inline-block bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent relative pb-3"
               >
@@ -401,7 +450,7 @@ export function Home() {
                 />
               </motion.span>
             </h1>
-            
+
             {/* Role text */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -411,18 +460,18 @@ export function Home() {
               style={{ marginBottom: '40px', marginTop: '60px' }}
             >
               <p className="text-2xl md:text-4xl lg:text-5xl font-bold leading-normal pb-1 relative z-10"
-              style={{
-                background: 'linear-gradient(to right, #354341, #4C7B7C)',
-                backgroundSize: '50% 100%',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>
-                Front End Developer 
+                style={{
+                  background: 'linear-gradient(to right, #354341, #4C7B7C)',
+                  backgroundSize: '50% 100%',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>
+                Front End Developer
               </p>
             </motion.div>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
@@ -495,8 +544,8 @@ export function Home() {
                     damping: 15,
                     delay: 1.8 + index * 0.1,
                   }}
-                  whileHover={{ 
-                    scale: 1.15, 
+                  whileHover={{
+                    scale: 1.15,
                     y: -8,
                     rotateY: 360,
                   }}
@@ -521,7 +570,7 @@ export function Home() {
                     >
                       <item.icon className="w-8 h-8 text-white" />
                     </motion.div>
-                    
+
                     <span className="text-sm font-bold text-[#2B2A28] dark:text-[#F7F4EE] group-hover:text-[#4C7B7B] dark:group-hover:text-[#6E9A9A] transition-colors">
                       {item.label}
                     </span>
@@ -546,25 +595,25 @@ export function Home() {
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               className="flex flex-col items-center gap-2 cursor-pointer"
-              style={{paddingTop: '48px'}}
+              style={{ paddingTop: '48px' }}
             >
               <span className="text-xs font-semibold text-[#7A756D] dark:text-[#B8B8B8] tracking-wider">
                 SCROLL TO EXPLORE
               </span>
               <motion.div
                 className="w-6 h-10 border-2 border-[#4C7B7B]/40 rounded-full p-2 flex justify-center"
-                style={{backgroundColor: 'white'}}
+                style={{ backgroundColor: 'white' }}
                 whileHover={{ borderColor: 'rgba(76,123,123,0.8)' }}
               >
                 {/* Scrolling dot */}
 
                 <motion.div
-                  className="w-2 h-2 rounded-full" 
-                  style={{ 
+                  className="w-2 h-2 rounded-full"
+                  style={{
                     backgroundColor: '#578586',
-                    display: 'block',          
-                    minHeight: '12px',         
-                    minWidth: '4px'    
+                    display: 'block',
+                    minHeight: '12px',
+                    minWidth: '4px'
                   }}
                   animate={{ y: [0, 5, 1] }}
                   transition={{ duration: 1, repeat: Infinity }}
@@ -629,7 +678,7 @@ export function Home() {
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               About <span className="bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent">Me</span>
             </h2>
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
               viewport={{ once: true }}
@@ -660,11 +709,11 @@ export function Home() {
                   className="relative"
                 >
                   <div className="w-72 h-72 md:w-96 md:h-96 rounded-[3rem] bg-gradient-to-br from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] flex items-center justify-center shadow-2xl relative overflow-hidden group">
-                    
+
                     {/* Profile Image */}
-                    <img 
-                      src={profilePic} 
-                      alt="Mikaella Gabrielle" 
+                    <img
+                      src={profilePic}
+                      alt="Mikaella Gabrielle"
                       className="w-full h-full object-cover object-top relative z-10 group-hover:scale-110 transition-transform duration-700"
                     />
 
@@ -708,7 +757,7 @@ export function Home() {
                     />
                   </div>
 
-                  <motion.div 
+                  <motion.div
                     className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-[#6E9A9A] to-[#4C7B7B] rounded-3xl -z-10 opacity-50"
                     animate={{
                       rotate: [0, 180, 360],
@@ -719,7 +768,7 @@ export function Home() {
                       ease: 'linear',
                     }}
                   />
-                  <motion.div 
+                  <motion.div
                     className="absolute -top-6 -left-6 w-24 h-24 border-4 border-[#4C7B7B] rounded-2xl -z-10"
                     animate={{
                       rotate: [0, -180, -360],
@@ -742,7 +791,7 @@ export function Home() {
               transition={{ duration: 0.8 }}
               className="md:col-span-2 space-y-6"
             >
-              <motion.h3 
+              <motion.h3
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -751,7 +800,7 @@ export function Home() {
               >
                 Hello! I'm <span className="bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] bg-clip-text text-transparent">Mikaella Gabrielle S. Yamaguchi</span>
               </motion.h3>
-              
+
               <div className="space-y-5 text-[#7A756D] dark:text-[#B8B8B8] text-lg leading-relaxed">
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
@@ -760,35 +809,35 @@ export function Home() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="relative pl-6 border-l-4 border-[#4C7B7B]/30"
                 >
-                  I'm a <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-bold">Front End Developer</strong> currently studying Information Technology with a focus on Web Development at <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold">Holy Angel University</strong>. 
+                  I'm a <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-bold">Front End Developer</strong> currently studying Information Technology with a focus on Web Development at <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold">Holy Angel University</strong>.
                   I got into coding after discovering websites with amazing interactivity and design and wanted to learn how they were built. Since then, I have been focused on turning ideas into clean and engaging experiences on the web.
                 </motion.p>
-                
+
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  My journey into web development began with fascination for how beautifully interactive websites are crafted, and it quickly evolved into a 
-                  passion for creating elegant, user-centered digital experiences. I believe that great web development is where 
+                  My journey into web development began with fascination for how beautifully interactive websites are crafted, and it quickly evolved into a
+                  passion for creating elegant, user-centered digital experiences. I believe that great web development is where
                   <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> creativity meets functionality</strong>, and I strive to deliver both in every project I work on.
                 </motion.p>
-                
+
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  I specialize in crafting responsive, pixel-perfect interfaces using modern frontend technologies like <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold">HTML5</strong>, 
-                  <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> CSS3</strong>, <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> JavaScript</strong>, <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> React</strong>, and <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> Tailwind CSS</strong>. 
+                  I specialize in crafting responsive, pixel-perfect interfaces using modern frontend technologies like <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold">HTML5</strong>,
+                  <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> CSS3</strong>, <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> JavaScript</strong>, <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> React</strong>, and <strong className="text-[#4C7B7B] dark:text-[#6E9A9A] font-semibold"> Tailwind CSS</strong>.
                   I'm always eager to learn new technologies and stay up-to-date with the latest web development trends.
                 </motion.p>
               </div>
 
               {/* Quick Stats */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -903,7 +952,7 @@ export function Home() {
                   className="relative bg-gradient-to-br from-[#F7F4EE] to-white dark:from-[#0a0a0a] dark:to-[#1a1a1a] p-6 rounded-2xl shadow-md hover:shadow-xl transition-all border border-[#4C7B7B]/10 cursor-default group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-[#4C7B7B]/0 to-[#6E9A9A]/0 group-hover:from-[#4C7B7B]/5 group-hover:to-[#6E9A9A]/5 rounded-2xl transition-all" />
-                  
+
                   <div className="relative z-10 flex flex-col items-center text-center gap-3">
                     <motion.div
                       whileHover={{ rotate: 360 }}
@@ -954,9 +1003,9 @@ export function Home() {
                   className="bg-gradient-to-br from-[#F7F4EE] to-white dark:from-[#0a0a0a] dark:to-[#1a1a1a] p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all border border-[#4C7B7B]/10 group relative overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#4C7B7B]/5 to-transparent rounded-bl-full group-hover:scale-150 transition-transform duration-500" />
-                  
+
                   <div className="relative z-10 flex items-start gap-4">
-                    <motion.div 
+                    <motion.div
                       className="w-14 h-14 bg-gradient-to-br from-[#4C7B7B] to-[#6E9A9A] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg"
                       whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                       transition={{ duration: 0.5 }}
@@ -996,7 +1045,7 @@ export function Home() {
 
       {/* Featured Projects Section */}
       <section id="projects" className="py-32 px-4 bg-[#F7F4EE] dark:bg-[#0a0a0a] relative overflow-hidden">
-        
+
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
           <motion.div
@@ -1012,7 +1061,7 @@ export function Home() {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          
+
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1035,7 +1084,7 @@ export function Home() {
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-[#2B2A28] dark:text-[#F7F4EE]">
               Featured <span className="bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent">Projects</span>
             </h2>
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
               viewport={{ once: true }}
@@ -1048,121 +1097,122 @@ export function Home() {
           </motion.div>
 
           {/* Project Cards List */}
-<div className="space-y-32" style={{display: 'flex', flexDirection: 'column', gap: '80px'}}>
-  {featuredProjects.map((project, index) => (
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      style={{gap: '10%'}}
-      className={`grid md:grid-cols-2 gap-10 lg:gap-16 items-center ${
-        index % 2 === 1 ? 'md:flex-row-reverse' : ''
-      }`}
-    >
-      
-      {/* Left Side: The Carousel */}
-      <motion.div
-        className={`relative ${index % 2 === 1 ? 'md:order-2' : ''}`}
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.3 }}
-      >
-        <ProjectCarousel images={project.images} title={project.title} />
-        
-     
-        <motion.div
-          className={`absolute -z-10 w-full h-full bg-gradient-to-br from-[#4C7B7B]/10 to-[#6E9A9A]/10 rounded-3xl ${
-            index % 2 === 1 ? '-left-6 -top-6' : '-right-6 -bottom-6'
-          }`}
-          animate={{ rotate: [0, 5, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </motion.div>
-
-      {/* Right Side: Project Details */}
-      <motion.div
-        initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
-        className={`space-y-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}
-      >
-        <div className="flex items-center gap-4">
-          {/* THE NEW BADGE POSITION: Right beside the Title */}
-          <motion.div
-            initial={{ scale: 0, rotate: -45 }}
-            whileInView={{ scale: 1, rotate: 0 }}
-            viewport={{ once: true }}
-            className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#4C7B7B] to-[#6E9A9A] rounded-xl flex items-center justify-center shadow-lg border-2 border-white dark:border-[#0a0a0a]"
-          >
-            <span className="text-white text-lg font-bold">0{index + 1}</span>
-          </motion.div>
-
-          <span className="inline-block px-4 py-2 bg-[#4C7B7B]/10 text-[#4C7B7B] dark:text-[#6E9A9A] rounded-lg text-sm font-semibold">
-            {project.tags[0]} Project
-          </span>
-        </div>
-
-        <motion.h3
-          className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-[#2B2A28] dark:text-[#F7F4EE]"
-        >
-          {project.title}
-        </motion.h3>
-
-        <motion.p
-          className="text-[#7A756D] dark:text-[#B8B8B8] text-lg leading-relaxed"
-        >
-          {project.description}
-        </motion.p>
-
-        {/* Tech Stack */}
-        <div className="space-y-3">
-          <p className="text-sm font-semibold text-[#7A756D] dark:text-[#B8B8B8] uppercase tracking-wider" style={{paddingBottom: '10px'}}>
-            Tech Stack
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {project.tags.map((tag, i) => (
-              <span
-                key={i}
-                className="px-4 py-2 bg-white dark:bg-[#1a1a1a] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl text-sm font-bold border border-[#4C7B7B]/20 shadow-sm"
+          <div className="space-y-32" style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+            {featuredProjects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                style={{ gap: '10%' }}
+                className={`grid md:grid-cols-2 gap-10 lg:gap-16 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                  }`}
               >
-                {tag}
-              </span>
+
+                {/* Left Side: The Carousel */}
+                <motion.div
+                  className={`relative ${index % 2 === 1 ? 'md:order-2' : ''}`}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ProjectCarousel images={project.images} title={project.title} />
+
+
+                  <motion.div
+                    className={`absolute -z-10 w-full h-full bg-gradient-to-br from-[#4C7B7B]/10 to-[#6E9A9A]/10 rounded-3xl ${index % 2 === 1 ? '-left-6 -top-6' : '-right-6 -bottom-6'
+                      }`}
+                    animate={{ rotate: [0, 5, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                </motion.div>
+
+                {/* Right Side: Project Details */}
+                <motion.div
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+                  className={`space-y-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <motion.div
+                      initial={{ scale: 0, rotate: -45 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      viewport={{ once: true }}
+                      className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#4C7B7B] to-[#6E9A9A] rounded-xl flex items-center justify-center shadow-lg border-2 border-white dark:border-[#0a0a0a]"
+                    >
+                      <span className="text-white text-lg font-bold">0{index + 1}</span>
+                    </motion.div>
+
+                    <span className="inline-block px-4 py-2 bg-[#4C7B7B]/10 text-[#4C7B7B] dark:text-[#6E9A9A] rounded-lg text-sm font-semibold">
+                      {project.tags[0]} Project
+                    </span>
+
+                    <span className="px-4 py-2 border-2 border-[#4C7B7B]/10 text-[#7A756D] dark:text-[#B8B8B8] rounded-full text-sm font-bold uppercase tracking-wider">
+                      Role: {project.role}
+                    </span>
+                  </div>
+
+                  <motion.h3
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-[#2B2A28] dark:text-[#F7F4EE]"
+                  >
+                    {project.title}
+                  </motion.h3>
+
+                  <motion.p
+                    className="text-[#7A756D] dark:text-[#B8B8B8] text-lg leading-relaxed"
+                  >
+                    {project.description}
+                  </motion.p>
+
+                  {/* Tech Stack */}
+                  <div className="space-y-3">
+                    <p className="text-sm font-semibold text-[#7A756D] dark:text-[#B8B8B8] uppercase tracking-wider" style={{ paddingBottom: '10px' }}>
+                      Tech Stack
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      {project.tags.map((tag, i) => (
+                        <span
+                          key={i}
+                          className="px-4 py-2 bg-white dark:bg-[#1a1a1a] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl text-sm font-bold border border-[#4C7B7B]/20 shadow-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-4 pt-4">
+                    <a
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group"
+                    >
+                      <Globe className="w-4 h-4" />
+                      <span>Live Demo</span>
+                    </a>
+
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#4C7B7B] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl font-bold hover:bg-[#4C7B7B] hover:text-white transition-all group"
+                    >
+                      <Code2 className="w-4 h-4" />
+                      <span>Source Code</span>
+                    </a>
+                  </div>
+                </motion.div>
+
+              </motion.div>
             ))}
           </div>
         </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-4 pt-4">
-          <a
-            href={project.demoLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all group"
-          >
-            <Globe className="w-4 h-4" />
-            <span>Live Demo</span>
-          </a>
-          
-          <a
-            href={project.githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#4C7B7B] text-[#4C7B7B] dark:text-[#6E9A9A] rounded-xl font-bold hover:bg-[#4C7B7B] hover:text-white transition-all group"
-          >
-            <Code2 className="w-4 h-4" />
-            <span>Source Code</span>
-          </a>
-        </div>
-      </motion.div>
-      
-    </motion.div>
-  ))}
-</div>
-</div>
       </section>
-      
+
       {/* Blog Section */}
       <section
         id="blog"
@@ -1176,7 +1226,7 @@ export function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-24" 
+            className="text-center mb-24"
           >
             <motion.div
               initial={{ scale: 0 }}
@@ -1189,26 +1239,26 @@ export function Home() {
                 My Journal
               </div>
             </motion.div>
-            
+
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#2B2A28] dark:text-[#F7F4EE]">
               Blog & <span className="bg-gradient-to-r from-[#4C7B7B] via-[#5A8A8A] to-[#6E9A9A] bg-clip-text text-transparent">Writing</span>
             </h2>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="h-1.5 bg-gradient-to-r from-[#4C7B7B] to-[#6E9A9A] rounded-full mx-auto mb-6"
             />
-            
+
             <p className="mt-3 text-[#7A756D] dark:text-[#B8B8B8] max-w-xl mx-auto text-lg" style={{ paddingBottom: '50px' }}>
               Notes, experiments, and lessons from building on the web.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-24 gap-x-16 lg:gap-x-24" style={{gap: '30px'}}>
-            
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-24 gap-x-16 lg:gap-x-24" style={{ gap: '30px' }}>
+
             {blogPosts.map((post, index) => (
               <motion.a
                 key={index}
@@ -1222,13 +1272,13 @@ export function Home() {
 
                 <div className="w-full h-64 lg:h-72 overflow-hidden relative">
                   <div className="absolute inset-0 bg-[#4C7B7B]/10 group-hover:opacity-0 transition-opacity duration-500 z-10 mix-blend-multiply" />
-                  
+
                   <img
                     src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
-                  
+
                   <div className="absolute top-6 left-6 z-20">
                     <span className="px-5 py-2 bg-white/95 dark:bg-black/90 backdrop-blur-md text-[#4C7B7B] dark:text-[#6E9A9A] text-xs font-bold rounded-xl uppercase tracking-wider shadow-lg">
                       {post.category}
@@ -1236,28 +1286,28 @@ export function Home() {
                   </div>
                 </div>
 
-                <div className="p-8 lg:p-10 flex flex-col flex-1" style={{gap: '8px'}}>
-                  
+                <div className="p-8 lg:p-10 flex flex-col flex-1" style={{ gap: '8px' }}>
+
                   <div className="text-sm font-bold text-[#7A756D] dark:text-[#B8B8B8] mb-4 flex items-center gap-3">
-                    <span className="flex items-center gap-1.5" style={{gap: '5px'}}><Calendar className="w-4 h-4" /> {post.date}</span>
+                    <span className="flex items-center gap-1.5" style={{ gap: '5px' }}><Calendar className="w-4 h-4" /> {post.date}</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-[#4C7B7B]/40" />
-                    <span className="flex items-center gap-1.5" style={{gap: '5px'}}><Clock className="w-4 h-4" /> {post.readTime}</span>
+                    <span className="flex items-center gap-1.5" style={{ gap: '5px' }}><Clock className="w-4 h-4" /> {post.readTime}</span>
                   </div>
-             
+
                   <h3 className="text-2xl lg:text-3xl font-bold leading-snug text-[#2B2A28] dark:text-[#F7F4EE] mb-5 transition-colors duration-300 group-hover:text-[#4C7B7B] dark:group-hover:text-[#6E9A9A]">
                     {post.title}
                   </h3>
-                
+
                   <p className="text-[#7A756D] dark:text-[#B8B8B8] leading-relaxed mb-10 flex-1 text-lg">
                     {post.excerpt}
                   </p>
 
-                  <div className="mt-auto flex items-center justify-between border-t border-[#4C7B7B]/10 pt-6" style={{paddingTop: '8px'}}>
+                  <div className="mt-auto flex items-center justify-between border-t border-[#4C7B7B]/10 pt-6" style={{ paddingTop: '8px' }}>
                     <span className="font-bold text-[#4C7B7B] dark:text-[#6E9A9A] text-lg">
                       Read Article
                     </span>
                     <div className="w-12 h-12 rounded-full bg-[#4C7B7B]/10 group-hover:bg-[#4C7B7B] group-hover:text-white text-[#4C7B7B] dark:text-[#6E9A9A] flex items-center justify-center transition-all duration-300 shadow-sm group-hover:shadow-md">
-     
+
                       <ArrowRight className="w-5 h-5 group-hover:-rotate-45 group-hover:scale-110 transition-transform duration-300" />
                     </div>
                   </div>
@@ -1269,7 +1319,7 @@ export function Home() {
           </div>
         </div>
       </section>
-      
+
       {/* Contact Section */}
       <section id="contact" className="py-32 px-4 bg-white dark:bg-[#1a1a1a]">
         <div className="max-w-6xl mx-auto">
@@ -1299,7 +1349,7 @@ export function Home() {
               className="space-y-6"
             >
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              
+
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={index}
@@ -1391,11 +1441,10 @@ export function Home() {
                   disabled={formStatus === 'sending' || formStatus === 'success'}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full px-8 py-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
-                    formStatus === 'success'
+                  className={`w-full px-8 py-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${formStatus === 'success'
                       ? 'bg-green-500 text-white'
                       : 'bg-[#4C7B7B] hover:bg-[#6E9A9A] text-white'
-                  }`}
+                    }`}
                 >
                   {formStatus === 'sending' && 'Sending...'}
                   {formStatus === 'success' && (
