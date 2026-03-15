@@ -5,7 +5,6 @@ export function CustomCursor() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   
-  // A slightly heavier spring gives it a very smooth, buttery movement
   const smoothX = useSpring(x, { damping: 25, stiffness: 250, mass: 0.5 });
   const smoothY = useSpring(y, { damping: 25, stiffness: 250, mass: 0.5 });
   
@@ -20,11 +19,10 @@ export function CustomCursor() {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // Check if hovering over draggable carousel cards
       if (target.closest('.cursor-grab') || target.closest('.active\\:cursor-grabbing')) {
         setHoverState('drag');
       } 
-      // Check if hovering over links, buttons, or anything clickable
+
       else if (
         target.tagName === 'A' || 
         target.tagName === 'BUTTON' || 
@@ -33,7 +31,7 @@ export function CustomCursor() {
       ) {
         setHoverState('click');
       } 
-      // Default state
+
       else {
         setHoverState('default');
       }
@@ -58,17 +56,15 @@ export function CustomCursor() {
         translateY: '-50%' 
       }}
       animate={{
-        // Stretches into a pill shape when active, shrinks to a dot when default
         width: hoverState === 'default' ? 12 : 72,
         height: hoverState === 'default' ? 12 : 32,
         backgroundColor: hoverState === 'default' ? '#4C7B7B' : '#F7F4EE',
         borderColor: hoverState === 'default' ? 'transparent' : '#4C7B7B',
         borderWidth: hoverState === 'default' ? 0 : 2,
-        borderRadius: 9999, // Always perfectly rounded
+        borderRadius: 9999, 
       }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
-      {/* The Text that appears inside the cursor */}
       <AnimatePresence mode="wait">
         {hoverState === 'click' && (
           <motion.span
