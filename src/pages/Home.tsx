@@ -109,11 +109,40 @@ export function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-    setTimeout(() => {
-      setFormStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "16754f68-9a8c-4000-8e2b-108faae7f538", 
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: "New Portfolio Contact from " + formData.name,
+          from_name: "E-Portfolio Notification"
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', message: '' }); 
+        setTimeout(() => setFormStatus('idle'), 3000);    
+      } else {
+        console.error("Error from Web3Forms:", result);
+        setFormStatus('error');
+        setTimeout(() => setFormStatus('idle'), 3000);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 3000);
-    }, 1500);
+    }
   };
 
   const featuredProjects = [
@@ -1321,7 +1350,7 @@ export function Home() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#F7F4EE] dark:bg-[#0a0a0a] border-2 border-transparent focus:border-[#4C7B7B] dark:focus:border-[#6E9A9A] rounded-xl outline-none transition-all"
-                    placeholder="John Doe"
+                    placeholder="John Dela Cruz"
                   />
                 </div>
 
@@ -1337,7 +1366,7 @@ export function Home() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-[#F7F4EE] dark:bg-[#0a0a0a] border-2 border-transparent focus:border-[#4C7B7B] dark:focus:border-[#6E9A9A] rounded-xl outline-none transition-all"
-                    placeholder="john@example.com"
+                    placeholder="john.dela.cruz@example.com"
                   />
                 </div>
 
