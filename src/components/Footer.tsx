@@ -1,137 +1,49 @@
-import { motion } from 'framer-motion';
-import { Link, useLocation } from 'react-router';
-import { Mail, Linkedin } from 'lucide-react';
-import logo from '../assets/img/e-portfolio-my-logo.png';
+import { Link } from 'react-router';
+import { ArrowUp } from 'lucide-react';
+import { EMAIL, GITHUB, LINKEDIN, LOCATION } from '../data';
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-  const location = useLocation();
-
-  const handleFooterLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    if (path.startsWith('#')) {
-      e.preventDefault();
-      const sectionId = path.replace('#', '');
-      
-      if (location.pathname === '/') {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const offset = 80;
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - offset;
-          
-          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-        }
-      } else {
-        window.location.href = '/' + path;
-      }
-    }
-  };
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="relative py-20 px-4 sm:px-6 lg:px-8 bg-[#2B2A28] dark:bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          {/* Logo & Subtitle */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-center md:items-start"
-          >
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <img 
-                src={logo}
-                alt="MY Logo" 
-                className="w-12 h-12 rounded-full object-cover mb-4 shadow-lg"
-              />
-            </motion.div>
-            <p className="text-sm text-[#B8B8B8] text-center md:text-left">
-              Front End Developer
+    <footer className="footer">
+      <div className="wrap">
+        <div className="footer__grid">
+          <div>
+            <p className="display footer__big">
+              Mikaella <span className="accent">Yamaguchi</span>
             </p>
-          </motion.div>
+            <p className="mono muted" style={{ marginTop: 12 }}>
+              Front-end developer · {LOCATION}
+            </p>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-center md:text-left"
-          >
-            <h3 className="font-bold mb-4 text-[#F7F4EE]">Quick Links</h3>
-            <ul className="space-y-2">
-              {[
-                { name: 'Home', path: '/' },
-                { name: 'About', path: '#about' },
-                { name: 'Contact', path: '#contact' },
-                { name: 'Resume', path: '/resume' },
-              ].map((item) => (
-                <li key={item.name}>
-                  {item.path.startsWith('#') ? (
-                    <a 
-                      href={item.path} 
-                      onClick={(e) => handleFooterLinkClick(e, item.path)}
-                      className="text-[#B8B8B8] hover:text-[#6E9A9A] transition-colors text-sm cursor-pointer"
-                    >
-                      {item.name}
-                    </a>
-                  ) : (
-                    <Link to={item.path} className="text-[#B8B8B8] hover:text-[#6E9A9A] transition-colors text-sm">
-                      {item.name}
-                    </Link>
-                  )}
-                </li>
-              ))}
+          <div>
+            <p className="mono muted">Index</p>
+            <ul>
+              <li><Link className="link-u" to="/#about">About</Link></li>
+              <li><Link className="link-u" to="/#projects">Work</Link></li>
+              <li><Link className="link-u" to="/#blog">Journal</Link></li>
+              <li><Link className="link-u" to="/resume">Resume</Link></li>
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Social Connect */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-          >
-            <h3 className="font-bold mb-4 text-[#F7F4EE]">Connect</h3>
-            <div className="flex gap-4 justify-center md:justify-start">
-              <motion.a
-                href="mailto:mikaellayamaguchi23@gmail.com"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-[#6E9A9A] transition-all"
-                whileHover={{ scale: 1.1, y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Email"
-              >
-                <Mail className="w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="https://www.linkedin.com/in/mika-yamaguchi-053532350/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-[#6E9A9A] transition-all"
-                whileHover={{ scale: 1.1, y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </motion.a>
-            </div>
-          </motion.div>
+          <div>
+            <p className="mono muted">Elsewhere</p>
+            <ul>
+              <li><a className="link-u" href={`mailto:${EMAIL}`}>Email</a></li>
+              <li><a className="link-u" href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              <li><a className="link-u" href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            </ul>
+          </div>
         </div>
 
-        {/* Copyright */}
-        <motion.div
-          className="text-center pt-8 border-t border-white/10"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-sm text-[#B8B8B8]">
-            © {currentYear} Mikaella Gabrielle S. Yamaguchi
-          </p>
-          <p className="text-xs text-[#7A756D] mt-1">
-            Front End Developer
-          </p>
-        </motion.div>
+        <div className="footer__bar mono muted">
+          <span>© {year} Mikaella Gabrielle S. Yamaguchi</span>
+          <button className="mono" onClick={() => window.scrollTo({ top: 0 })} style={{ display: 'inline-flex', gap: 6, alignItems: 'center', color: 'var(--fg)' }}>
+            Back to top <ArrowUp style={{ width: 12, height: 12 }} />
+          </button>
+        </div>
       </div>
     </footer>
   );

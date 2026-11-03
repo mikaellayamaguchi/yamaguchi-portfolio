@@ -1,4 +1,4 @@
-import wdjourn from '../assets/img/blog-web-developer-journey2.png';
+import wdjourn from '../assets/img/blog-web-developer-journey2.webp';
 
 export const blogArticles = {
   "journey": {

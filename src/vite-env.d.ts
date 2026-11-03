@@ -8,3 +8,12 @@ declare module "*.png" {
 declare module "*.jpg";
 declare module "*.jpeg";
 declare module "*.svg";
+declare module "*.webp" {
+  const value: string;
+  export default value;
+}
+
+declare module "*.pdf" {
+  const value: string;
+  export default value;
+}
